@@ -1,0 +1,126 @@
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+
+    def add_child(self, child):
+        self.children.append(child)
+
+    def display_tree(self, level=0):
+        """Displays the tree structure."""
+        prefix = "  " * level + "|-- " if level > 0 else ""
+        print(prefix + str(self.data))
+        for child in self.children:
+            child.display_tree(level + 1)
+
+
+# Example Usage:
+root = TreeNode("0 0")
+child01 = TreeNode("0 1")
+child02 = TreeNode("0 2")
+child03 = TreeNode("0 3")
+child04 = TreeNode("0 4")
+child05 = TreeNode("0 5")
+child06 = TreeNode("0 6")
+child07 = TreeNode("0 7")
+child11 = TreeNode("1 1")
+child12 = TreeNode("1 2")
+child13 = TreeNode("1 3")
+child14 = TreeNode("1 4")
+child15 = TreeNode("1 5")
+child16 = TreeNode("1 6")
+child17 = TreeNode("1 7")
+child21 = TreeNode("2 1")
+child22 = TreeNode("2 2")
+child23 = TreeNode("2 3")
+child24 = TreeNode("2 4")
+child25 = TreeNode("2 5")
+child26 = TreeNode("2 6")
+child27 = TreeNode("2 7")
+child31 = TreeNode("3 1")
+child32 = TreeNode("3 2")
+child33 = TreeNode("3 3")
+child34 = TreeNode("3 4")
+child35 = TreeNode("3 5")
+child36 = TreeNode("3 6")
+child37 = TreeNode("3 7")
+child41 = TreeNode("4 1")
+child42 = TreeNode("4 2")
+child43 = TreeNode("4 3")
+child44 = TreeNode("4 4")
+child45 = TreeNode("4 5")
+child46 = TreeNode("4 6")
+child47 = TreeNode("4 7")
+child51 = TreeNode("5 1")
+child52 = TreeNode("5 2")
+child53 = TreeNode("5 3")
+child54 = TreeNode("5 4")
+child55 = TreeNode("5 5")
+child56 = TreeNode("5 6")
+child57 = TreeNode("5 7")
+child61 = TreeNode("6 1")
+child62 = TreeNode("6 2")
+child63 = TreeNode("6 3")
+child64 = TreeNode("6 4")
+child65 = TreeNode("6 5")
+child66 = TreeNode("6 6")
+child67 = TreeNode("6 7")
+child71 = TreeNode("7 1")
+child72 = TreeNode("7 2")
+child73 = TreeNode("7 3")
+child74 = TreeNode("7 4")
+child75 = TreeNode("7 5")
+child76 = TreeNode("7 6")
+child77 = TreeNode("7 7")
+
+root.add_child(child01)
+child01.add_child(child02)
+child01.add_child(child03)
+child01.add_child(child04)
+child04.add_child(child14)
+child14.add_child(child15)
+child14.add_child(child13)
+child15.add_child(child16)
+child15.add_child(child05)
+child13.add_child(child23)
+child05.add_child(child06)
+child05.add_child(child07)
+child07.add_child(child17)
+child15.add_child(child16)
+child16.add_child(child26)
+child26.add_child(child36)
+child36.add_child(child46)
+child46.add_child(child45)
+child36.add_child(child37)
+child37.add_child(child47)
+child37.add_child(child57)
+child57.add_child(child56)
+child37.add_child(child67)
+child37.add_child(child77)
+child77.add_child(child76)
+
+maze = """
+.----.----.----.----.----.----.----.----.
+|         |                             | 7
+.    .----.    .----.----.    .----.    .
+|    |              |    |    |         | 6
+.    .    .----.    .    .----.    .----.
+|         |    |    |                   | 5
+.----.    .    .----.    .----.    .----.
+|         |    |         |    |    |    | 4
+.    .    .    .    .    .    .    .
+|    |         | end     |    |    |    | 3
+.    .    .    .----.----.    .    .    .
+|    |    |                             | 2
+.    .    .----.----.----.----.    .    .
+|    |                        |    |    | 1
+.    .    .----.----.    .    .    .    .
+| X  |              |    |         |    | 0
+.----.----.----.----.----.----.----.----.
+  0     1    2    3    4    5   6    7
+"""
+
+
+print(maze)
+print("Paths for mouse...")
+root.display_tree()
