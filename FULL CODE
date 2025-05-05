@@ -98,6 +98,10 @@ child57.add_child(child56)
 child37.add_child(child67)
 child37.add_child(child77)
 child77.add_child(child76)
+child76.add_child(child66)
+child66.add_child(child65)
+child65.add_child(child75)
+child65.add_child(child55)
 
 maze = """
 .----.----.----.----.----.----.----.----.
