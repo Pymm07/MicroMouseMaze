@@ -1,1 +1,91 @@
+import random
+
+BLUE = "\033[94m"
+RED = "\033[91m"
+YELLOW = "\033[93m"
+RESET = "\033[0m"
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+        self.parent = None
+
+    def add_child(self, data):
+        child = Node(data)
+        child.parent = self
+        self.children.append(child)
+        return child
+
+def build_tree_with_duplicate_leaf():
+    values = list(range(20))
+    duplicate_value = random.choice(values)
+    values.remove(duplicate_value)
+
+    root_val = random.choice(values)
+    values.remove(root_val)
+    root = Node(root_val)
+
+    
+    level2_nodes = [root.add_child(values.pop()) for _ in range(3)]
+
+    # Level 3: each level 2 node has two children
+    level3_nodes = []
+    for parent in level2_nodes:
+        for _ in range(2):
+            level3_nodes.append(parent.add_child(values.pop()))
+
+    # Pick two distinct level 3 nodes to add duplicate leaves
+    parents_for_dup = random.sample(level3_nodes, 2)
+    leaf1 = parents_for_dup[0].add_child(duplicate_value)
+    leaf2 = parents_for_dup[1].add_child(duplicate_value)
+
+    # Fill remaining children to have 2 children per level 3 node if possible
+    leaf_nodes = [leaf1, leaf2]
+    for parent in level3_nodes:
+        while len(parent.children) < 2 and values:
+            leaf_nodes.append(parent.add_child(values.pop()))
+
+    return root, leaf1, leaf2
+
+def get_path_to_root(node):
+    """Return list of nodes from given node up to the root."""
+    path = []
+    while node:
+        path.append(node)
+        node = node.parent
+    return path
+
+def find_lowest_common_ancestor(path1, path2):
+    """Given two root paths (node lists from leaf up to root), return the LCA node."""
+    set1 = set(path1)
+    for node in path2:
+        if node in set1:
+            return node
+    return None
+
+def print_tree(node, level=0, prefix="Root: ", paths=[], lca=None):
+    """Recursively print the tree with colored paths and LCA highlighted."""
+    color = RESET
+    if node in paths[0]:
+        color = BLUE
+    if node in paths[1]:
+        # If node is on both paths, highlight with yellow (LCA)
+        color = RED if node not in paths[0] else YELLOW
+    if lca is not None and node == lca:
+        color = YELLOW
+
+    print(" " * (level * 4) + color + prefix + str(node.data) + RESET)
+    for child in node.children:
+        print_tree(child, level + 1, prefix="--> ", paths=paths, lca=lca)
+
+# Run the example
+if __name__ == "__main__":
+    root, leafA, leafB = build_tree_with_duplicate_leaf()
+    pathA = get_path_to_root(leafA)
+    pathB = get_path_to_root(leafB)
+    setA, setB = set(pathA), set(pathB)
+    lca_node = find_lowest_common_ancestor(pathA, pathB)
+
+    print_tree(root, paths=[setA, setB], lca=lca_node)
 
